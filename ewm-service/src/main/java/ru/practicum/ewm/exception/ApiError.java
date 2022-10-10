@@ -1,14 +1,20 @@
 package ru.practicum.ewm.exception;
 
-import lombok.Data;
+import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ApiError {
     private List<String> errors;
+    private ErrorStatus status;
     private String message;
     private String reason;
-    private ErrorStatus status;
-    private String timestamp;
+    private LocalDateTime timestamp;
 }

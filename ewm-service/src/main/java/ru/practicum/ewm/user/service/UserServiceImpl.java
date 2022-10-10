@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
         if (ids == null || ids.size() == 0) {
             users = userRepository.findAll(PageRequest.of(from / size, size)).toList();
         } else {
-            users = userRepository.findAllByIdIn(ids, PageRequest.of(from, size));
+            users = userRepository.findAllByIdIn(ids, PageRequest.of(from / size, size));
         }
 
         return users.stream().map(UserMapper::toUserDto).collect(Collectors.toList());

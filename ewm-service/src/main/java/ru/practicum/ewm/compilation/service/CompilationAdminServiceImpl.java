@@ -10,7 +10,6 @@ import ru.practicum.ewm.compilation.dto.NewCompilationDto;
 import ru.practicum.ewm.compilation.model.Compilation;
 import ru.practicum.ewm.event.dao.EventRepository;
 import ru.practicum.ewm.event.model.Event;
-import ru.practicum.ewm.event.service.EventPublicService;
 import ru.practicum.ewm.exception.NotFoundException;
 
 import java.util.List;
@@ -21,15 +20,11 @@ public class CompilationAdminServiceImpl implements CompilationAdminService {
 
     private final CompilationRepository compilationRepository;
     private final EventRepository eventRepository;
-    private final CompilationService compilationService;
-    private final EventPublicService eventPublicService;
 
     @Autowired
-    public CompilationAdminServiceImpl(CompilationRepository compilationRepository, EventRepository eventRepository, CompilationService compilationService, EventPublicService eventPublicService) {
+    public CompilationAdminServiceImpl(CompilationRepository compilationRepository, EventRepository eventRepository) {
         this.compilationRepository = compilationRepository;
         this.eventRepository = eventRepository;
-        this.compilationService = compilationService;
-        this.eventPublicService = eventPublicService;
     }
 
     @Override
@@ -55,7 +50,6 @@ public class CompilationAdminServiceImpl implements CompilationAdminService {
                 .orElseThrow(() -> new NotFoundException("Compilation is not found!"));
 
         Event event = eventRepository.findById(eventId).orElseThrow(() -> new NotFoundException("Event is not found!"));
-//        Event event = eventPublicService.getEventById(eventId);
         compilation.getEvents().remove(event);
         compilationRepository.save(compilation);
     }
@@ -66,7 +60,6 @@ public class CompilationAdminServiceImpl implements CompilationAdminService {
                 .orElseThrow(() -> new NotFoundException("Compilation is not found!"));
 
         Event event = eventRepository.findById(eventId).orElseThrow(() -> new NotFoundException("Event is not found!"));
-//        Event event = eventPublicService.getEventById(eventId);
         compilation.getEvents().add(event);
         compilationRepository.save(compilation);
     }
@@ -86,6 +79,4 @@ public class CompilationAdminServiceImpl implements CompilationAdminService {
         compilation.setPinned(true);
         compilationRepository.save(compilation);
     }
-
-
 }

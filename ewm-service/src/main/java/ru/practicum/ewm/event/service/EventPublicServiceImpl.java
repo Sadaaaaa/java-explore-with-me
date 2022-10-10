@@ -82,6 +82,10 @@ public class EventPublicServiceImpl implements EventPublicService {
                     paidParam, rangeStart, rangeEnd, PageRequest.of(from / size, size, Sort.by(sort)));
         }
 
+        // увеличили и сохранили количество просмотров
+        eventsWithParameters.forEach(event -> event.setViews(event.getViews() + 1));
+        eventRepository.saveAll(eventsWithParameters);
+
         // отправляем статистику на сервер
         EndpointHit endpointHit = new EndpointHit(
                 null,
@@ -103,6 +107,10 @@ public class EventPublicServiceImpl implements EventPublicService {
         if (event.getState() != EventStatus.PUBLISHED) {
             throw new BadRequestException("Event is not published yet.");
         }
+
+        // увеличили и сохранили количество просмотров
+        event.setViews(event.getViews() + 1);
+        eventRepository.save(event);
 
         EndpointHit endpointHit = new EndpointHit(
                 null,

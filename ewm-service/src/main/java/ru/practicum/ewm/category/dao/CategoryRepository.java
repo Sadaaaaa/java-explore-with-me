@@ -6,7 +6,4 @@ import ru.practicum.ewm.category.model.Category;
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
     Category findByNameIsContainingIgnoreCase(String categoryName);
-//    Page<Category> findAll(Pageable pageable);
-
-
 }

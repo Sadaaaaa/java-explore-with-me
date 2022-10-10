@@ -59,7 +59,7 @@ public class CategoryAdminServiceImpl implements CategoryAdminService {
 
     @Override
     public void deleteCategory(int catId) {
-        // Обратите внимание: с категорией не должно быть связано ни одного события.
+        // с категорией не должно быть связано ни одного события.
         if (eventRepository.findByCategory_Id(catId) != null) {
             throw new BadRequestException("Category linked with events!");
         }

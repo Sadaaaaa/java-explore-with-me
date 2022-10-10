@@ -26,7 +26,6 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
                                                       @Param("paid") List<Boolean> paid,
                                                       @Param("rangeStart") LocalDateTime rangeStart,
                                                       @Param("rangeEnd") LocalDateTime rangeEnd,
-//                                                      @Param("sort") String sort,
                                                       Pageable pageable);
 
     @Query(" select e from Event e " +
@@ -41,7 +40,6 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
                                         @Param("paid") List<Boolean> paid,
                                         @Param("rangeStart") LocalDateTime rangeStart,
                                         @Param("rangeEnd") LocalDateTime rangeEnd,
-//                                        @Param("sort") String sort,
                                         Pageable pageable);
 
 
@@ -63,6 +61,4 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
     List<Event> findAllByIds(List<Integer> eventIds);
 
     Event findByCategory_Id(int catId);
-
-
 }

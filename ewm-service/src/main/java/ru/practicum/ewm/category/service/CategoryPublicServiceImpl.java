@@ -24,9 +24,8 @@ public class CategoryPublicServiceImpl implements CategoryPublicService {
 
     @Override
     public List<CategoryDto> getAllCategories(Integer from, Integer size) {
-        List<Category> categories = categoryRepository.findAll(PageRequest.of(from, size)).toList();
+        List<Category> categories = categoryRepository.findAll(PageRequest.of(from / size, size)).toList();
         return categories.stream().map(CategoryMapper::toCategoryDto).collect(Collectors.toList());
-//        return categoryRepository.findAll(PageRequest.of(from/size, size)).toList();
     }
 
     @Override

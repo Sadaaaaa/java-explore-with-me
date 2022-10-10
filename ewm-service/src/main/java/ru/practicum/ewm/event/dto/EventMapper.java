@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 
 public class EventMapper {
 
-    // метод используется только один раз
     public static Event fromNewEventDtoToEvent(NewEventDto newEventDto) {
         return new Event(
                 null,

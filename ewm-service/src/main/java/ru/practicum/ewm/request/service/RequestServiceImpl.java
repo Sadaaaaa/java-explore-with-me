@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import ru.practicum.ewm.event.dao.EventRepository;
 import ru.practicum.ewm.event.model.Event;
 import ru.practicum.ewm.event.model.EventStatus;
-import ru.practicum.ewm.event.service.EventPublicService;
 import ru.practicum.ewm.exception.NotFoundException;
 import ru.practicum.ewm.request.dao.RequestRepository;
 import ru.practicum.ewm.request.dto.ParticipationRequestDto;
@@ -26,14 +25,12 @@ public class RequestServiceImpl implements RequestService {
     private final RequestRepository requestRepository;
     private final UserRepository userRepository;
     private final EventRepository eventRepository;
-    private final EventPublicService eventPublicService;
 
     @Autowired
-    public RequestServiceImpl(RequestRepository requestRepository, UserRepository userRepository, EventRepository eventRepository, EventPublicService eventPublicService) {
+    public RequestServiceImpl(RequestRepository requestRepository, UserRepository userRepository, EventRepository eventRepository) {
         this.requestRepository = requestRepository;
         this.userRepository = userRepository;
         this.eventRepository = eventRepository;
-        this.eventPublicService = eventPublicService;
     }
 
     @Override
