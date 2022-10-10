@@ -20,14 +20,13 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
             " and e.category.id in :categories " +
             " and e.paid in :paid " +
             " and (e.eventDate >= :rangeStart and e.eventDate <= :rangeEnd) " +
-            " and e.state = 'PUBLISHED' " +
-            " order by :sort DESC ")
+            " and e.state = 'PUBLISHED' ")
     List<Event> getEventsWithParametersAndIfAvailable(@Param("search") String textSearch,
                                                       @Param("categories") List<Integer> categories,
                                                       @Param("paid") List<Boolean> paid,
                                                       @Param("rangeStart") LocalDateTime rangeStart,
                                                       @Param("rangeEnd") LocalDateTime rangeEnd,
-                                                      @Param("sort") String sort,
+//                                                      @Param("sort") String sort,
                                                       Pageable pageable);
 
     @Query(" select e from Event e " +
@@ -36,14 +35,13 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
             " and e.paid in :paid " +
             " and e.category.id in :categories " +
             " and (e.eventDate >= :rangeStart and e.eventDate <= :rangeEnd) " +
-            " and e.state = 'PUBLISHED' " +
-            " order by :sort ")
+            " and e.state = 'PUBLISHED' ")
     List<Event> getEventsWithParameters(@Param("search") String textSearch,
                                         @Param("categories") List<Integer> categories,
                                         @Param("paid") List<Boolean> paid,
                                         @Param("rangeStart") LocalDateTime rangeStart,
                                         @Param("rangeEnd") LocalDateTime rangeEnd,
-                                        @Param("sort") String sort,
+//                                        @Param("sort") String sort,
                                         Pageable pageable);
 
 

@@ -12,7 +12,8 @@ import ru.practicum.ewm.util.EndpointHit;
 @Service
 public class StatClient extends BaseClient {
 
-    private static final String LOCALHOST = "http://localhost:9090";
+//    private static final String LOCALHOST = "http://localhost:9090";
+    private static final String LOCALHOST = "http://stats-server:9090";
 
     @Autowired
     public StatClient(@Value(LOCALHOST) String serverUrl, RestTemplateBuilder builder) {

@@ -3,6 +3,7 @@ package ru.practicum.ewm.event.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.practicum.ewm.category.dao.CategoryRepository;
 import ru.practicum.ewm.category.model.Category;
@@ -47,7 +48,11 @@ public class EventPublicServiceImpl implements EventPublicService {
 
         // если в запросе не указан параметр sort
         if (sort == null) {
-            sort = "ID";
+            sort = "id";
+        } else if (sort.equals("EVENT_DATE")) {
+            sort = "eventDate";
+        } else if (sort.equals("VIEWS")) {
+            sort = "views";
         }
 
         // если в запросе не указан параметр paid
@@ -71,10 +76,10 @@ public class EventPublicServiceImpl implements EventPublicService {
         // показываются только события у которых не исчерпан лимит запросов на участие, если onlyAvailable=true
         if (onlyAvailable != null && onlyAvailable) {
             eventsWithParameters = eventRepository.getEventsWithParametersAndIfAvailable(text, categories,
-                    paidParam, rangeStart, rangeEnd, sort, PageRequest.of(from, size));
+                    paidParam, rangeStart, rangeEnd, PageRequest.of(from / size, size, Sort.by(sort)));
         } else {
             eventsWithParameters = eventRepository.getEventsWithParameters(text, categories,
-                    paidParam, rangeStart, rangeEnd, sort, PageRequest.of(from, size));
+                    paidParam, rangeStart, rangeEnd, PageRequest.of(from / size, size, Sort.by(sort)));
         }
 
         // отправляем статистику на сервер
