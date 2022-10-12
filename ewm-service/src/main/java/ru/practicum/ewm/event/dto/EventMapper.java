@@ -1,11 +1,16 @@
 package ru.practicum.ewm.event.dto;
 
 import ru.practicum.ewm.category.dto.CategoryMapper;
+import ru.practicum.ewm.comment.dto.CommentDto;
+import ru.practicum.ewm.comment.dto.CommentMapper;
 import ru.practicum.ewm.event.model.Event;
 import ru.practicum.ewm.event.model.EventStatus;
 import ru.practicum.ewm.user.dto.UserMapper;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class EventMapper {
 
@@ -26,11 +31,17 @@ public class EventMapper {
                 newEventDto.getRequestModeration(),
                 EventStatus.PENDING,
                 newEventDto.getTitle(),
-                0
+                0,
+                null
         );
     }
 
     public static EventFullDto fromEventToEventFullDto(Event event) {
+        List<CommentDto> comments = new ArrayList<>();
+        if (event.getComments() != null) {
+            comments = event.getComments().stream().map(CommentMapper::toCommentDto).collect(Collectors.toList());
+        }
+
         return new EventFullDto(
                 event.getId(),
                 event.getAnnotation(),
@@ -47,11 +58,16 @@ public class EventMapper {
                 event.getRequestModeration(),
                 event.getState(),
                 event.getTitle(),
-                event.getViews()
+                event.getViews(),
+                comments
         );
     }
 
     public static EventShortDto toEventShortDto(Event event) {
+        List<CommentDto> comments = new ArrayList<>();
+        if (event.getComments() != null) {
+            comments = event.getComments().stream().map(CommentMapper::toCommentDto).collect(Collectors.toList());
+        }
         return new EventShortDto(
                 event.getId(),
                 event.getAnnotation(),
@@ -61,7 +77,8 @@ public class EventMapper {
                 UserMapper.toUserShortDto(event.getInitiator()),
                 event.getPaid(),
                 event.getTitle(),
-                event.getViews()
+                event.getViews(),
+                comments
         );
     }
 }
