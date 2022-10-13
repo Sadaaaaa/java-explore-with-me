@@ -59,10 +59,16 @@ public class CategoryAdminServiceImpl implements CategoryAdminService {
 
     @Override
     public void deleteCategory(int catId) {
+        // категория должна существовать
+        categoryRepository.findById(catId).orElseThrow(() -> new NotFoundException("Category is not exist!"));
+
         // с категорией не должно быть связано ни одного события.
         if (eventRepository.findByCategory_Id(catId) != null) {
             throw new BadRequestException("Category linked with events!");
         }
+
+
+
         categoryRepository.deleteById(catId);
     }
 
