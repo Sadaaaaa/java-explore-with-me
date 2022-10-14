@@ -14,3 +14,12 @@ API для [Swagger](https://editor-next.swagger.io/) :
 - открываем проект с приложением
 - запускаем команду **mvn clean package** в Maven
 - запускаем команду **docker-compose up** в терминале IDEA  (Docker daemon должен быть запущен)
+
+Фича: Добавление комментариев к событиям.  
+
+Эндпоинты:  
+Добавить коммент: http://localhost:8080/users/{userId}/events/{eventId}/comment  
+Изменить коммент: http://localhost:8080/users/{userId}/events/{eventId}/comment/{commentId}   
+Удалить коммент: http://localhost:8080/users/{userId}/events/{eventId}/comment/{commentId}   
+Получить коммент по его id: http://localhost:8080/comment/{commentId}  
+Получить все комменты по id события: http://localhost:8080/comment/all/{eventId}
