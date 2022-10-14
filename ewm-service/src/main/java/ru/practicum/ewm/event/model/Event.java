@@ -4,11 +4,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.practicum.ewm.category.model.Category;
+import ru.practicum.ewm.comment.model.Comment;
 import ru.practicum.ewm.user.model.User;
 import ru.practicum.ewm.util.Location;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -59,4 +62,8 @@ public class Event {
     private String title;
     @Column(name = "views")
     private Integer views;
+    @OneToMany
+    @JoinColumn(name = "event_id")
+    @ToString.Exclude
+    private List<Comment> comments = new ArrayList<>();
 }
