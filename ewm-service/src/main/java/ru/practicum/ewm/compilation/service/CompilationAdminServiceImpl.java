@@ -46,8 +46,7 @@ public class CompilationAdminServiceImpl implements CompilationAdminService {
 
     @Override
     public void deleteEventByIdFromCompilation(int compId, int eventId) {
-        Compilation compilation = compilationRepository.findById(compId)
-                .orElseThrow(() -> new NotFoundException("Compilation is not found!"));
+        Compilation compilation = getCompilation(compId);
 
         Event event = eventRepository.findById(eventId).orElseThrow(() -> new NotFoundException("Event is not found!"));
         compilation.getEvents().remove(event);
@@ -56,8 +55,7 @@ public class CompilationAdminServiceImpl implements CompilationAdminService {
 
     @Override
     public void addEventToCompilation(int compId, int eventId) {
-        Compilation compilation = compilationRepository.findById(compId)
-                .orElseThrow(() -> new NotFoundException("Compilation is not found!"));
+        Compilation compilation = getCompilation(compId);
 
         Event event = eventRepository.findById(eventId).orElseThrow(() -> new NotFoundException("Event is not found!"));
         compilation.getEvents().add(event);
@@ -66,17 +64,20 @@ public class CompilationAdminServiceImpl implements CompilationAdminService {
 
     @Override
     public void unpinCompilation(int compId) {
-        Compilation compilation = compilationRepository.findById(compId)
-                .orElseThrow(() -> new NotFoundException("Compilation is not found!"));
+        Compilation compilation = getCompilation(compId);
         compilation.setPinned(false);
         compilationRepository.save(compilation);
     }
 
     @Override
     public void pinCompilation(int compId) {
-        Compilation compilation = compilationRepository.findById(compId)
-                .orElseThrow(() -> new NotFoundException("Compilation is not found!"));
+        Compilation compilation = getCompilation(compId);
         compilation.setPinned(true);
         compilationRepository.save(compilation);
+    }
+
+    public Compilation getCompilation(int compId) {
+        return compilationRepository.findById(compId)
+                .orElseThrow(() -> new NotFoundException("Compilation is not found!"));
     }
 }
